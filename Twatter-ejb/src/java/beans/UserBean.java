@@ -3,53 +3,135 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package beans;
 
-import java.io.File;
+import base.Accunt;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
  * @author Jesse
  */
-
 @Stateless
 @Named
-@Path("/UserBean")
+@Path("/users")
 public class UserBean
 {
+    @PersistenceContext(name = "Twatter")
+    private EntityManager em;
+
     @POST
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Path("{username}/photo/upload")
-    public boolean UploadImage(@PathParam("username") String username, @FormParam("image") File file)
+    @Produces(
+            {
+                MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
+            })
+    @Path("{username}/update/details")
+    public Response UploadDetails(@PathParam("username") String username, @FormParam("bio") String bio)
     {
-        //todo check if the attached file is an image
-        return false;
+        int length = bio.length();
+
+        if (length > 160)
+        {
+            return Response.status(501).entity("bio exceeded a length of 160 symbols!").build();
+        }
+        else
+        {
+            GetUser(username).setBio(bio);
+
+            return Response.ok().build();
+        }
     }
-    
+
     @POST
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Path("{username}/profile/details")
-    public boolean UploadDetails(@PathParam("username") String username, @FormParam("bio") String bio, @FormParam("location") String location, @FormParam("website") String website)
+    @Produces(
+            {
+                MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
+            })
+    @Path("{username}/update/username")
+    public Response ChangeUsername(@PathParam("username") String username, @FormParam("newusername") String newusername)
     {
-        //todo check if bio is equal to or less than 160 characters
-        return false;
+        if (GetUser(newusername) != null)
+        {
+            return Response.status(501).entity("username already in use").build();
+        }
+        
+        GetUser(username).setUsername(newusername);
+        
+        return Response.ok().build();
     }
-    
-    @POST
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Path("{username}/profile/username")
-    public boolean ChangeUsername(@PathParam("username") String username, @FormParam("newusername") String newusername)
+
+    @GET
+    @Produces(
+            {
+                MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
+            })
+    @Path("{username}")
+    public Accunt GetUser(@PathParam("username") String username)
     {
-        //todo change the old username into the new username
-        return false;
+        TypedQuery<Accunt> query = em.createNamedQuery("Accunt.findByUsername", Accunt.class);
+        query.setParameter("username", username);
+
+        List<Accunt> cunts =  query.getResultList();
+        if (cunts.isEmpty()) {
+            return null;
+        }
+        return cunts.get(0);
+    }
+
+    @GET
+    @Produces(
+            {
+                MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
+            })
+    @Path("{username}/followers")
+    public List<Accunt> GetFollowers(@PathParam("username") String username)
+    {
+        return GetUser(username).getFollowers();
+    }
+
+    @GET
+    @Produces(
+            {
+                MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
+            })
+    @Path("{username}/following")
+    public List<Accunt> GetFollowing(@PathParam("username") String username)
+    {
+        return GetUser(username).getFollowing();
+    }
+
+    @POST
+    @Produces(
+            {
+                MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
+            })
+    @Path("{username}/follow")
+    public void FollowUser(@PathParam("username") String username, @FormParam("otheruser") String otheruser)
+    {
+        GetUser(username).follow(GetUser(otheruser));
+    }
+
+    @POST
+    @Produces(
+            {
+                MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
+            })
+    @Path("{username}/unfollow")
+    public void UnFollowUser(@PathParam("username") String username, @FormParam("otheruser") String otheruser)
+    {
+        GetUser(username).unfollow(GetUser(otheruser));
     }
 }

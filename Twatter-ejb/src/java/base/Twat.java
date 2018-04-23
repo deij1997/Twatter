@@ -37,18 +37,18 @@ public class Twat implements Serializable, Comparable<Twat>
     String title;
     String contents;
     @OneToMany
-    List<Accunt> retwats;
+    List<TwatterAccount> retwats;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date senddate;
     @ManyToOne
-    private Accunt poster;
+    private TwatterAccount poster;
 
     @Deprecated
     public Twat()
     {
     }
 
-    public Twat(String title, String contents, Accunt postman)
+    public Twat(String title, String contents, TwatterAccount postman)
     {
         this.title = title;
         this.contents = contents;
@@ -59,12 +59,12 @@ public class Twat implements Serializable, Comparable<Twat>
         this.senddate = new Date();
     }
     
-    public Accunt getPoster()
+    public TwatterAccount getPoster()
     {
         return poster;
     }
 
-    public void setPoster(Accunt poster)
+    public void setPoster(TwatterAccount poster)
     {
         this.poster = poster;
     }
@@ -99,12 +99,12 @@ public class Twat implements Serializable, Comparable<Twat>
         this.contents = contents;
     }
 
-    public List<Accunt> getRetwats()
+    public List<TwatterAccount> getRetwats()
     {
         return retwats;
     }
 
-    public void setRetwats(List<Accunt> retwats)
+    public void setRetwats(List<TwatterAccount> retwats)
     {
         this.retwats = retwats;
     }

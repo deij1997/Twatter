@@ -5,7 +5,7 @@
  */
 package beans;
 
-import base.Accunt;
+import base.TwatterAccount;
 import base.Twat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,7 +48,7 @@ public class TwatBean
     @Path("{username}/twat")
     public Response PostTwat(@PathParam("username") String username, @FormParam("title") String title, @FormParam("contents") String contents)
     {
-        Accunt cunt = user.GetUser(username);
+        TwatterAccount cunt = user.GetUser(username);
 
         if (cunt == null)
         {
@@ -100,11 +100,11 @@ public class TwatBean
     public List<Twat> GetTwatLine(@PathParam("username") String username)
     {
         //todo something to retweet the twat
-        Accunt me = user.GetUser(username);
-        List<Accunt> cunts = me.getFollowing();
+        TwatterAccount me = user.GetUser(username);
+        List<TwatterAccount> cunts = me.getFollowing();
         List<Twat> allTwats = new ArrayList<>();
 
-        for (Accunt cunt : cunts)
+        for (TwatterAccount cunt : cunts)
         {
             allTwats.addAll(cunt.getTwats());
         }

@@ -28,10 +28,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @NamedQueries(
         {
-            @NamedQuery(name = "Accunt.findByUsername",
-                        query = "SELECT a FROM Accunt a WHERE a.username = :username"),
+            @NamedQuery(name = "TwatterAccount.findByUsername",
+                        query = "SELECT a FROM TwatterAccount a WHERE a.username = :username"),
         })
-public class Accunt implements Serializable
+public class TwatterAccount implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,7 +46,7 @@ public class Accunt implements Serializable
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "follower_id")
     )
-    private List<Accunt> followers;
+    private List<TwatterAccount> followers;
     
     
     @OneToMany(cascade = CascadeType.ALL)
@@ -54,7 +54,7 @@ public class Accunt implements Serializable
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "follow_id")
     )
-    private List<Accunt> following;
+    private List<TwatterAccount> following;
     
     
     @OneToMany(cascade = CascadeType.ALL)
@@ -65,17 +65,17 @@ public class Accunt implements Serializable
     private List<Twat> twats;
 
     @Deprecated
-    public Accunt()
+    public TwatterAccount()
     {
-    }
-
-    public Accunt(String username)
-    {
-        this.username = username;
-
+        this.twats = new ArrayList<>();
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
-        this.twats = new ArrayList<>();
+    }
+
+    public TwatterAccount(String username)
+    {
+        this();
+        this.username = username;
     }
 
     @XmlTransient
@@ -120,23 +120,23 @@ public class Accunt implements Serializable
     }
 
     @XmlTransient
-    public List<Accunt> getFollowers()
+    public List<TwatterAccount> getFollowers()
     {
         return followers;
     }
 
-    public void setFollowers(List<Accunt> followers)
+    public void setFollowers(List<TwatterAccount> followers)
     {
         this.followers = followers;
     }
 
     @XmlTransient
-    public List<Accunt> getFollowing()
+    public List<TwatterAccount> getFollowing()
     {
         return following;
     }
 
-    public void setFollowing(List<Accunt> following)
+    public void setFollowing(List<TwatterAccount> following)
     {
         this.following = following;
     }
@@ -146,14 +146,14 @@ public class Accunt implements Serializable
         twats.add(newtwat);
     }
 
-    public void follow(Accunt who)
+    public void follow(TwatterAccount who)
     {
         this.following.add(who);
 
         who.followers.add(this);
     }
 
-    public void unfollow(Accunt who)
+    public void unfollow(TwatterAccount who)
     {
         this.following.remove(who);
 

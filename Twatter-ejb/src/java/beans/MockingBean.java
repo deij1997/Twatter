@@ -6,7 +6,7 @@
 
 package beans;
 
-import base.Accunt;
+import base.TwatterAccount;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,8 +29,8 @@ public class MockingBean
     @Path("/init")
     public void init()
     {
-        Accunt cunt1 = new Accunt("cunt1");
-        Accunt cunt2 = new Accunt("cunt2");
+        TwatterAccount cunt1 = new TwatterAccount("cunt1");
+        TwatterAccount cunt2 = new TwatterAccount("cunt2");
         
         cunt1.follow(cunt2);
         cunt2.follow(cunt1);

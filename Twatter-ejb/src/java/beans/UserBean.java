@@ -5,7 +5,7 @@
  */
 package beans;
 
-import base.Accunt;
+import base.TwatterAccount;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
@@ -79,12 +79,12 @@ public class UserBean
                 MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
             })
     @Path("{username}")
-    public Accunt GetUser(@PathParam("username") String username)
+    public TwatterAccount GetUser(@PathParam("username") String username)
     {
-        TypedQuery<Accunt> query = em.createNamedQuery("Accunt.findByUsername", Accunt.class);
+        TypedQuery<TwatterAccount> query = em.createNamedQuery("TwatterAccount.findByUsername", TwatterAccount.class);
         query.setParameter("username", username);
 
-        List<Accunt> cunts =  query.getResultList();
+        List<TwatterAccount> cunts =  query.getResultList();
         if (cunts.isEmpty()) {
             return null;
         }
@@ -97,7 +97,7 @@ public class UserBean
                 MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
             })
     @Path("{username}/followers")
-    public List<Accunt> GetFollowers(@PathParam("username") String username)
+    public List<TwatterAccount> GetFollowers(@PathParam("username") String username)
     {
         return GetUser(username).getFollowers();
     }
@@ -108,7 +108,7 @@ public class UserBean
                 MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
             })
     @Path("{username}/following")
-    public List<Accunt> GetFollowing(@PathParam("username") String username)
+    public List<TwatterAccount> GetFollowing(@PathParam("username") String username)
     {
         return GetUser(username).getFollowing();
     }

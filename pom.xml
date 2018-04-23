@@ -1,41 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
     <artifactId>Twatter</artifactId>
     <groupId>com.Twatter</groupId>
     <version>1.0-SNAPSHOT</version>
-  </parent>
+    <packaging>pom</packaging>
 
-    <groupId>com.Twatter</groupId>
-    <artifactId>Twatter-ear</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>ear</packaging>
-
-    <name>Twatter-ear</name>
+    <name>Twatter</name>
 	<modules>
-        <module>Twatter-web</module>
+        <module>Twatter-ear</module>
+        <module>Twatter-war</module>
         <module>Twatter-ejb</module>
     </modules>
-
-	<dependencies>
-        <dependency>
-            <groupId>com.Twatter</groupId>
-            <artifactId>Twatter-ejb</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>ejb</type>
-        </dependency>
-        <dependency>
-            <groupId>com.Twatter</groupId>
-            <artifactId>Twatter-web</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>war</type>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-        </plugins>
-    </build>
-
+    
+    <properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
 </project>

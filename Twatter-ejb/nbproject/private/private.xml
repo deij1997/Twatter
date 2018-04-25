@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/java/beans/TwatBean.java</file>
-            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/java/restAPI/RestApplication.java</file>
-            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/java/beans/UserBean.java</file>
-            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/conf/persistence.xml</file>
-            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/java/beans/TestBean.java</file>
-            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/java/base/TwatterAccount.java</file>
-            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/java/beans/MockingBean.java</file>
-            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/java/base/Twat.java</file>
+            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/main/bonen/TestBean.java</file>
+            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/main/bonen/UserBean.java</file>
+            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/main/base/TwatterAccount.java</file>
+            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/main/bonen/MockingBean.java</file>
+            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/main/base/Twat.java</file>
+            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/main/bonen/TwatBean.java</file>
+            <file>file:/D:/Documents/s6/YEAH/TwatterGit/Twatter/Twatter-ejb/src/main/restAPI/RestApplication.java</file>
         </group>
     </open-files>
 </project-private>

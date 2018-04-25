@@ -11,6 +11,7 @@
         <module>Twatter-ear</module>
         <module>Twatter-war</module>
         <module>Twatter-ejb</module>
+		<module>TwatterTests</module>
     </modules>
     
     <properties>

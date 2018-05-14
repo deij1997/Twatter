@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import javax.xml.bind.annotation.XmlAttribute;
 
 /**
  *
@@ -123,5 +124,11 @@ public class Twat implements Serializable, Comparable<Twat>
     public int compareTo(Twat o)
     {
         return o.senddate.compareTo(senddate);
+    }
+    
+    @XmlAttribute
+    public long getSendDateLong()
+    {
+        return senddate.getTime();
     }
 }

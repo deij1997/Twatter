@@ -28,23 +28,43 @@ public class MockingBean
     @Path("/init")
     public void init()
     {
-        TwatterAccount cunt1 = new TwatterAccount("Deij1997");
-        TwatterAccount cunt2 = new TwatterAccount("RandomUsername");
+        TwatterAccount acc1 = new TwatterAccount("Deij1997");
+        TwatterAccount acc2 = new TwatterAccount("RandomUsername");
+        TwatterAccount acc3 = new TwatterAccount("Blepper");
+        TwatterAccount acc4 = new TwatterAccount("Christensen");
 
-        cunt1.follow(cunt2);
-        cunt2.follow(cunt1);
+        acc1.follow(acc2);
+        acc1.follow(acc3);
+        acc1.follow(acc4);
+        acc2.follow(acc1);
+        acc2.follow(acc3);
+        acc2.follow(acc4);
+        acc3.follow(acc1);
+        acc3.follow(acc2);
+        acc3.follow(acc4);
+        acc4.follow(acc1);
+        acc4.follow(acc2);
+        acc4.follow(acc3);
 
         try
         {
-            cunt1.twat("derp", "Deze site is echt gay");
+            acc1.twat("derp", "Deze site is echt bagger");
             Thread.sleep(2);
-            cunt2.twat("hallo", "dit is een twat lel");
+            acc2.twat("hallo", "dit is een twat lel");
+            Thread.sleep(2);
+            acc3.twat("heeeeey", "ik ga jullie met notificaties spammen");
+            Thread.sleep(2);
+            acc1.twat("pws no", "pws doe dat niet man ik word al gek genoeg van fking whatsapp groepen");
+            Thread.sleep(2);
+            acc4.twat("help", "i dont want to be here please someone get me out of here!!");
         }
         catch (Exception e)
         {
         }
 
-        em.persist(cunt1);
-        em.persist(cunt2);
+        em.persist(acc1);
+        em.persist(acc2);
+        em.persist(acc3);
+        em.persist(acc4);
     }
 }

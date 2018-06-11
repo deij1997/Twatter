@@ -5,6 +5,7 @@
  */
 package bonen;
 
+import annotations.Cached;
 import base.TwatterAccount;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -79,6 +80,7 @@ public class UserBean
                 MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON
             })
     @Path("{username}")
+    @Cached
     public TwatterAccount GetUser(@PathParam("username") String username)
     {
         TypedQuery<TwatterAccount> query = em.createNamedQuery("TwatterAccount.findByUsername", TwatterAccount.class);

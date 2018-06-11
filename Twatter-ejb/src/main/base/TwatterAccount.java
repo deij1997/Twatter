@@ -5,6 +5,7 @@
  */
 package base;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,24 +40,21 @@ public class TwatterAccount implements Serializable
     @Column(unique = true)
     private String username;
     private String bio;
-    
-    
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "follower_user",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "follower_id")
+               joinColumns = @JoinColumn(name = "user_id"),
+               inverseJoinColumns = @JoinColumn(name = "follower_id")
     )
     private List<TwatterAccount> followers;
-    
-    
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "follow_user",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "follow_id")
+               joinColumns = @JoinColumn(name = "user_id"),
+               inverseJoinColumns = @JoinColumn(name = "follow_id")
     )
     private List<TwatterAccount> following;
-    
-    
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "twat_user",
                joinColumns = @JoinColumn(name = "user_id"),
@@ -79,6 +77,7 @@ public class TwatterAccount implements Serializable
     }
 
     @XmlTransient
+    @JsonIgnore
     public List<Twat> getTwats()
     {
         return twats;
@@ -120,6 +119,7 @@ public class TwatterAccount implements Serializable
     }
 
     @XmlTransient
+    @JsonIgnore
     public List<TwatterAccount> getFollowers()
     {
         return followers;
@@ -131,6 +131,7 @@ public class TwatterAccount implements Serializable
     }
 
     @XmlTransient
+    @JsonIgnore
     public List<TwatterAccount> getFollowing()
     {
         return following;

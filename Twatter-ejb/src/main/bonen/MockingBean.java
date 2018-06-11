@@ -6,26 +6,25 @@
 package bonen;
 
 import base.TwatterAccount;
+import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
 
 /**
  *
  * @author Jesse
  */
 @Singleton
-@Path("/test")
+@Startup
 public class MockingBean
 {
 
     @PersistenceContext(name = "Twatter")
     EntityManager em;
 
-    @POST
-    @Path("/init")
+    @PostConstruct
     public void init()
     {
         TwatterAccount acc1 = new TwatterAccount("Deij1997");

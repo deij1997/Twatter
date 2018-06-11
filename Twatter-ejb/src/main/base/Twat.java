@@ -6,6 +6,7 @@
 
 package base;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -100,6 +101,7 @@ public class Twat implements Serializable, Comparable<Twat>
         this.contents = contents;
     }
 
+    @JsonIgnore
     public List<TwatterAccount> getRetwats()
     {
         return retwats;

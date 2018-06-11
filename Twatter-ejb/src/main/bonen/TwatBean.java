@@ -7,9 +7,13 @@ package bonen;
 
 import base.Twat;
 import base.TwatterAccount;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,6 +28,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import sockets.TwatSessionHandler;
 
 /**
  *
@@ -36,10 +41,10 @@ public class TwatBean
 {
     @Inject
     private UserBean user;
-
+    
     @PersistenceContext(name = "Twatter")
     private EntityManager em;
-
+    
     @POST
     @Produces(
             {
@@ -49,19 +54,34 @@ public class TwatBean
     public Response PostTwat(@PathParam("username") String username, @FormParam("title") String title, @FormParam("contents") String contents)
     {
         TwatterAccount cunt = user.GetUser(username);
-
+        
         if (cunt == null)
         {
             return Response.status(501).build();
         }
-
+        
         Twat newtwat = new Twat(title, contents, cunt);
-
+        
         cunt.twat(newtwat);
-
+        
+        ObjectMapper mapper = new ObjectMapper();
+        
+        String jsonInString;
+        
+        try
+        {
+            jsonInString = mapper.writeValueAsString(newtwat);
+            
+            TwatSessionHandler.getInstance().handleMessage(jsonInString, null);
+        }
+        catch (JsonProcessingException ex)
+        {
+            Logger.getLogger(TwatBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return Response.ok(newtwat).build();
     }
-
+    
     @POST
     @Produces(
             {
@@ -71,10 +91,10 @@ public class TwatBean
     public Response ReTwat(@PathParam("username") String username, @FormParam("originaltwat") String originaltwat)
     {
         GetTwat(originaltwat).getRetwats().add(user.GetUser(username));
-
+        
         return Response.ok().build();
     }
-
+    
     @POST
     @Produces(
             {
@@ -87,10 +107,10 @@ public class TwatBean
         TypedQuery<Twat> query = em.createNamedQuery("Twat.findByContent", Twat.class);
         query.setParameter("contents", "%" + contents + "%");
         List<Twat> results = query.getResultList();
-
+        
         return results;
     }
-
+    
     @GET
     @Produces(
             {
@@ -103,19 +123,19 @@ public class TwatBean
         TwatterAccount me = user.GetUser(username);
         List<TwatterAccount> cunts = me.getFollowing();
         List<Twat> allTwats = new ArrayList<>();
-
+        
         for (TwatterAccount cunt : cunts)
         {
             allTwats.addAll(cunt.getTwats());
         }
         
         allTwats.addAll(me.getTwats());
-
+        
         Collections.sort(allTwats);
-
+        
         return allTwats;
     }
-
+    
     @GET
     @Produces(
             {

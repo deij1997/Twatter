@@ -83,32 +83,28 @@ function postTwat() {
 
     var data = 'title=' + titletext + '&contents=' + contentstext;
 
+    if (titletext == "")
+    {
+        //ToDo show message saying its empty
+        alert("Enter a Title for your Twat!");
+        return;
+    }
+    else if (contentstext == "")
+    {
+        alert("Write some contents for your Twat!")
+        return;
+    }
+
     call("POST", "api/twats/" + username + "/twat/", data, function(response, succes, code) {
-        if (succes) {
-            var holder = document.getElementById('twat-holder');
-            var t = {
-                'poster': {}
-            };
-            t.poster.username = username;
-            t.contents = contentstext;
-            t.title = titletext;
-            t.sendDateLong = new Date().getTime();
-
-            var twat = new Twat(t, holder);
-
-            if (titletext == "")
-            {
-                //ToDo show message saying its empty
-                alert("Enter a Title for your Twat!");
-            }
-            else if (contentstext == "")
-            {
-                alert("Write some contents for your Twat!")
-            }
-            else
-            {
-                twat.renderTop();
-            }
-        }
+        
     }, 'application/x-www-form-urlencoded');
 }
+
+var socket = new WebSocket("ws://localhost:8080/Twatter-war/actions/newtweets");
+
+socket.addEventListener("message", function(e) {
+    var tweet = JSON.parse(e.data);
+    var holder = document.getElementById('twat-holder');
+    var twat = new Twat(tweet, holder);
+    twat.renderTop();
+});

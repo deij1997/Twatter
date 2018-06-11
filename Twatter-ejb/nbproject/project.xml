@@ -5,6 +5,9 @@
         <data xmlns="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
             <name>Twatter-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
+            <included-library dirs="200">file.reference.com.fasterxml.jackson.databind.jar</included-library>
+            <included-library dirs="200">file.reference.jackson-annotations-2.1.2.jar</included-library>
+            <included-library dirs="200">file.reference.jackson-core-2.2.3.jar</included-library>
             <source-roots>
                 <root id="src.main.dir"/>
             </source-roots>
